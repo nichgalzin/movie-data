@@ -54,24 +54,35 @@ const imgSrc = values.map(el => el.src);
 
 // DOM Access
 
-const posterContainer = document.querySelector('section');
-const posterButtons = document.getElementsByClassName('poster');
-const posterWall = document.getElementById('poster-wall');
-const movieInfo = document.getElementById('movie-info');
+const instructionsBox = document.getElementById('instructions');
+const instructionsHeader = document.querySelector('h2');
 
+const posterContainer = document.querySelector('section');
+const posterButtons = document.getElementsByClassName('poster-btn');
+const posterWall = document.getElementById('poster-wall');
+
+const movieWall = document.getElementById('movie-wall');
+const backButton = document.getElementById('back-btn')
 
 
 // Poster wall creation and insertion
   
+
+function posterDislpay() {
   for (let index = 0; index < posters.length; index++) {
     let button = document.createElement('button');
-    button.classList.add('poster');
+    button.classList.add('poster-btn');
+    button.type = 'button'; 
+    button.role = 'button';
     posters[index].src = imgSrc[index];
     button.appendChild(posters[index]);
     posterContainer.appendChild(button);
   }
+}
 
-  // Individual movie poster and facts display
+posterDislpay();
+
+  // Individual movie wall and facts display
   
   function movieDisplay(i) {
 
@@ -106,16 +117,13 @@ const movieInfo = document.getElementById('movie-info');
 
     posterDiv.appendChild(posters[i]);
     textDiv.appendChild(h2);
-    parentDiv.appendChild(posterDiv);
-    parentDiv.appendChild(textDiv);
-    textDiv.appendChild(plotParagraph)
-    textDiv.appendChild(castParagraph);
-    textDiv.appendChild(runtimeParagraph);
-    textDiv.appendChild(yearParagraph);
-    textDiv.appendChild(ratingParagraph);
-    movieInfo.appendChild(parentDiv);
+
+    parentDiv.append(posterDiv, textDiv);
+    textDiv.append(plotParagraph, castParagraph, runtimeParagraph, yearParagraph, ratingParagraph);
+    
+    movieWall.appendChild(parentDiv);
   }
-  
+
 
 /* Funcions */
 
@@ -123,32 +131,82 @@ function removeClass(el, name) {
   el.classList.remove('name');
 }
 
+function createBackBtn() {
+    const backBtn = document.createElement('button');
+    backBtn.textContent = 'Go Back';
+    backBtn.classList.add('back-btn');
+    backBtn.id = 'back-btn'
+    movieWall.appendChild(backBtn);
+
+    const backButton = document.getElementById('back-btn')
+    backButton.addEventListener('click', () => {
+      posterWall.style.display = 'flex';
+      instructionsBox.style.display ='block';
+      backButton.style.display = 'none';
+      movieWall.style.display = 'none';
+      
+      let movieInfo = document.getElementById('movie-info');
+      movieWall.removeChild(movieInfo);
+      movieWall.removeChild(backBtn);
+      posterWall.replaceChildren(movieDisplay());
+
+      // document.location.reload();
+
+    })
+}
+
 // Event Listeners
 
 //Darjeeling Limited button
 
 posterButtons[0].addEventListener('click', () => {
-    posterWall.style.display = 'none'
+    posterWall.style.display = 'none';
+    instructionsBox.style.display = 'none';
+    movieWall.style.display = 'flex';
+
     movieDisplay(0);
+    createBackBtn();
+
 })
 
 //Royal Tenenbaums button
 
-posterButtons[1].addEventListener('click', () => {
+posterButtons[1].addEventListener('click', (e) => {
+  e.preventDefault();
   posterWall.style.display = 'none'
+  instructionsBox.style.display = 'none';
+  movieWall.style.display = 'flex';
+
+
   movieDisplay(1);
+  createBackBtn();
+  
 })
 
 //Fantastic Mr. Fox Button
 
 posterButtons[2].addEventListener('click', () => {
-  posterWall.style.display = 'none'
+  posterWall.style.display = 'none';
+  instructionsBox.style.display = 'none';
+  movieWall.style.display = 'flex';
+
+
+  createBackBtn();
   movieDisplay(2);
 })
 
 //Grand Budapest Hotel button
 
 posterButtons[3].addEventListener('click', () => {
-  posterWall.style.display = 'none'
+  posterWall.style.display = 'none';
+  instructionsBox.style.display = 'none';
+  movieWall.style.display = 'flex';
+
+
+  createBackBtn()
   movieDisplay(3);
 })
+
+// backButton.addEventListener('click', () => {
+//   posterWall.style.display = 'flex';
+// })

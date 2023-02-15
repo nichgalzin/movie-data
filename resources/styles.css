@@ -44,6 +44,16 @@ header p {
 
 }
 
+/* Instruction heading */
+
+#instructions {
+    background-color: #A44A3F;
+    color: #F6F4D2;
+    padding: 1rem;
+    width: 35%;
+    margin: 1rem 0 0 2rem;
+}
+
 /* Flexbox Container and items */
 .container {
     width: 100%;
@@ -52,10 +62,13 @@ header p {
     justify-content: space-around; 
 }
 
-.poster {
-   width: 30%;
-   margin-top: 2rem;
+.poster-btn {
+    width: 30%;
+    margin-top: 2rem;
 }
+
+.poster-btn :hover {
+    opacity: .7;}
 
 /* Individual movie data screens */
 
@@ -67,7 +80,6 @@ header p {
 .text-box {
     padding-left: 2rem;
     margin-top: 3rem;
-    flex-grow: 1;
 }
 
 .text-box  p {
@@ -78,5 +90,30 @@ header p {
 
 .info-poster {
     width: 100%;  
-    flex-grow: 3;  
+}
+
+.back-btn {
+    height: 3rem;
+    width: 7rem;
+    padding: .5rem;
+    margin-top: 2rem;
+    position: absolute;
+    right: 3rem;
+    bottom: 2rem;
+    text-align: center;
+    font-family: 'Shrikhand', cursive;
+    background: #CBDFBD;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    cursor: pointer;
+}
+
+.back-btn:hover,
+.back-btn:active {
+    background-color: #D4E09B;
+    border: solid 3px #D4E09B;
+
+}
+
+.back-btn:active {
+    opacity: .5;
 }
