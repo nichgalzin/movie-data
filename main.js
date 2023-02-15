@@ -74,8 +74,10 @@ function posterDislpay() {
     button.classList.add('poster-btn');
     button.type = 'button'; 
     button.role = 'button';
-    posters[index].src = imgSrc[index];
-    button.appendChild(posters[index]);
+
+    let posterImg = document.createElement('img');
+    posterImg.src = imgSrc[index];
+    button.appendChild(posterImg);
     posterContainer.appendChild(button);
   }
 }
@@ -91,6 +93,7 @@ posterDislpay();
     let parentDiv = document.createElement('div');
     let textDiv = document.createElement('div');
     
+    let posterImg = document.createElement('img')
     let h2 = document.createElement('h2');
     let plotParagraph = document.createElement('p');
     let castParagraph = document.createElement('p');
@@ -106,7 +109,7 @@ posterDislpay();
 
     // Assign values
     h2.textContent = titles[i];
-    posters[i].src = imgSrc[i];
+    posterImg.src = imgSrc[i];
     plotParagraph.textContent = `Plot: ${values[i].plot}`;
     castParagraph.textContent = `Starring: ${values[i].cast}`;
     runtimeParagraph.textContent = `Runtime: ${values[i].runtime}`;
@@ -115,7 +118,7 @@ posterDislpay();
     
     //Add to the DOM
 
-    posterDiv.appendChild(posters[i]);
+    posterDiv.appendChild(posterImg);
     textDiv.appendChild(h2);
 
     parentDiv.append(posterDiv, textDiv);
@@ -127,10 +130,6 @@ posterDislpay();
 
 /* Funcions */
 
-function removeClass(el, name) {
-  el.classList.remove('name');
-}
-
 function createBackBtn() {
     const backBtn = document.createElement('button');
     backBtn.textContent = 'Go Back';
@@ -139,18 +138,14 @@ function createBackBtn() {
     movieWall.appendChild(backBtn);
 
     const backButton = document.getElementById('back-btn')
+    
     backButton.addEventListener('click', () => {
       posterWall.style.display = 'flex';
       instructionsBox.style.display ='block';
-      backButton.style.display = 'none';
-      movieWall.style.display = 'none';
       
       let movieInfo = document.getElementById('movie-info');
       movieWall.removeChild(movieInfo);
       movieWall.removeChild(backBtn);
-      posterWall.replaceChildren(movieDisplay());
-
-      // document.location.reload();
 
     })
 }
@@ -162,7 +157,6 @@ function createBackBtn() {
 posterButtons[0].addEventListener('click', () => {
     posterWall.style.display = 'none';
     instructionsBox.style.display = 'none';
-    movieWall.style.display = 'flex';
 
     movieDisplay(0);
     createBackBtn();
@@ -175,8 +169,6 @@ posterButtons[1].addEventListener('click', (e) => {
   e.preventDefault();
   posterWall.style.display = 'none'
   instructionsBox.style.display = 'none';
-  movieWall.style.display = 'flex';
-
 
   movieDisplay(1);
   createBackBtn();
@@ -188,8 +180,6 @@ posterButtons[1].addEventListener('click', (e) => {
 posterButtons[2].addEventListener('click', () => {
   posterWall.style.display = 'none';
   instructionsBox.style.display = 'none';
-  movieWall.style.display = 'flex';
-
 
   createBackBtn();
   movieDisplay(2);
@@ -200,8 +190,6 @@ posterButtons[2].addEventListener('click', () => {
 posterButtons[3].addEventListener('click', () => {
   posterWall.style.display = 'none';
   instructionsBox.style.display = 'none';
-  movieWall.style.display = 'flex';
-
 
   createBackBtn()
   movieDisplay(3);
