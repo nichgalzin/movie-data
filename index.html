@@ -19,8 +19,38 @@
         <div id="instructions">
             <h2>Click on a poster</h2>
         </div>
-        <section class="container" id="poster-wall"> </section>
+        <section id="poster-wall"> </section>
         <section id="movie-wall"></section>
+        <section id="form-box">
+            <h2>Or add your favourite film to the poster wall!</h2>
+            <form id="movie-form">
+                
+                <label for="movie-title">Movie Title:</label>
+                <input type="text" name="movie-title" id="movie-title">
+                <br>
+                <label for="plot">Plot Summary</label>
+                <input type="text" name="plot" id="plot">
+                <br>
+                <label for="actors">Starring Actors:</label>
+                <input type="text" name="actors" id="actors">
+                <br>
+                <label for="runtime">Runtime:</label>
+                <input type="number" name="runtime" id="runtime">
+                <br>
+                <label for="year">Year released:</label>
+                <input type="number" name="year" id="year">
+                <br>
+                <label for="rating">Rating:</label>
+                <input type="number" name="rating" id="rating">
+                <br>
+                <label for="link">Imagae link:</label>
+                <input type="text" name="link" id="link">
+                <br>
+                <button type="submit" id="submit-btn" class="btn">Submit</button>
+
+            </form>
+
+        </section>
     </main>
 </body>
 </html>

@@ -7,7 +7,6 @@ let movieData = {
       runtime: 151,
       rating: 7.2,
       year: 2007,
-      poster: document.createElement('img'),
       src: './resources/images/darjeelinglimited_NatalieAndrewson_web_670.jpg',
     },
     "The Royal Tenenbaums": {
@@ -16,7 +15,6 @@ let movieData = {
       year: 2001,
       cast: ["Gene Hackman ",  "Gwnyeth Paltrow ", " Anjelica Huston"],
       runtime: 170,
-      poster: document.createElement('img'),
       src: './resources/images/the-royal-t_web-natalieandrewson_670.jpg',
     },
     "Fantastic Mr. Fox": {
@@ -30,7 +28,6 @@ let movieData = {
       ],
       runtime: 147,
       rating: 7.9,
-      poster: document.createElement('img'),
       src: './resources/images/fantastic-mr-fox_natalieandrewson_web_670.jpg',
     },
     "The Grand Budapest Hotel": {
@@ -39,7 +36,6 @@ let movieData = {
       year: 2014,
       plot: "A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.",
       cast: ["Ralph Fiennes ", " F. Murray Abraham ", " Mathieu Amalric"],
-      poster: document.createElement('img'),
       src: './resources/images/grandbudapest-hotelnatalieandrewson_web_670.jpg',
     },
   }
@@ -48,16 +44,16 @@ let movieData = {
 // Movie titles and values arrays
 
 const titles = Object.keys(movieData);
-const values = Object.values(movieData);
-const posters = values.map(el => el.poster);
-const imgSrc = values.map(el => el.src);
+let values = Object.values(movieData);
+let imgSrc = values.map(el => el.src);
 
-// DOM Access
+// DOM Access for  poster and individual movie display walls
 
 const instructionsBox = document.getElementById('instructions');
 const instructionsHeader = document.querySelector('h2');
 
 const posterContainer = document.querySelector('section');
+const buttonContainer = document.getElementsByClassName('container');
 const posterButtons = document.getElementsByClassName('poster-btn');
 const posterWall = document.getElementById('poster-wall');
 
@@ -65,12 +61,22 @@ const movieWall = document.getElementById('movie-wall');
 const backButton = document.getElementById('back-btn')
 
 
-// Poster wall creation and insertion
+/*
+  Poster wall
+*/
   
-
 function posterDislpay() {
-  for (let index = 0; index < posters.length; index++) {
+  
+  values = Object.values(movieData);
+  imgSrc = values.map(el => el.src);
+  console.log(imgSrc);
+  
+  let container = document.createElement('div');
+
+  for (let index = 0; index < imgSrc.length; index++) {
+    
     let button = document.createElement('button');
+    container.classList.add('container');
     button.classList.add('poster-btn');
     button.type = 'button'; 
     button.role = 'button';
@@ -78,8 +84,10 @@ function posterDislpay() {
     let posterImg = document.createElement('img');
     posterImg.src = imgSrc[index];
     button.appendChild(posterImg);
-    posterContainer.appendChild(button);
+    container.appendChild(button);
   }
+
+  posterContainer.appendChild(container);
 }
 
 posterDislpay();
@@ -113,7 +121,7 @@ posterDislpay();
     plotParagraph.textContent = `Plot: ${values[i].plot}`;
     castParagraph.textContent = `Starring: ${values[i].cast}`;
     runtimeParagraph.textContent = `Runtime: ${values[i].runtime}`;
-    yearParagraph.textContent = `Year: ${values[i].runtime}`;
+    yearParagraph.textContent = `Year: ${values[i].year}`;
     ratingParagraph.textContent =  `Rating: ${values[i].rating}`;
     
     //Add to the DOM
@@ -135,6 +143,7 @@ function createBackBtn() {
     backBtn.textContent = 'Go Back';
     backBtn.classList.add('back-btn');
     backBtn.id = 'back-btn'
+    backBtn.classList.add('btn');
     movieWall.appendChild(backBtn);
 
     const backButton = document.getElementById('back-btn')
@@ -150,51 +159,74 @@ function createBackBtn() {
     })
 }
 
-// Event Listeners
+// Function for add event listener to poster wall
 
-//Darjeeling Limited button
+function addListener() {
 
-posterButtons[0].addEventListener('click', () => {
-    posterWall.style.display = 'none';
-    instructionsBox.style.display = 'none';
+  values = Object.values(movieData);
 
-    movieDisplay(0);
-    createBackBtn();
+    for (let i = 0; i < values.length; i++) {
+      posterButtons[i].addEventListener('click', () => {
+          posterWall.style.display = 'none';
+          instructionsBox.style.display = 'none';
+      
+          movieDisplay(i);
+          createBackBtn();
+      })
+    }
+  }
 
-})
+addListener();
 
-//Royal Tenenbaums button
 
-posterButtons[1].addEventListener('click', (e) => {
-  e.preventDefault();
-  posterWall.style.display = 'none'
-  instructionsBox.style.display = 'none';
+/*
+  Form for adding a film
+*/
 
-  movieDisplay(1);
-  createBackBtn();
+
+// DOM Access for form elements
+
+const movieForm = document.getElementById('movie-form');
+const submitBtn = document.getElementById('submit-btn');
+const movieTitle = document.getElementById('movie-title');
+const plotSummary = document.getElementById('plot');
+const starringActors = document.getElementById('actors');
+const runtime = document.getElementById('runtime');
+const yearReleased = document.getElementById('year');
+const rating = document.getElementById('rating');
+const imgLink = document.getElementById('link');
+
+
+class Movie {
+  constructor(rating, runtime, year, plot, cast, src) {
+    this.rating = rating;
+    this.runtime = runtime;
+    this.year = year;
+    this.plot = plot;
+    this.cast = cast;
+    this.src = src;
+  }
+}
+
+submitBtn.addEventListener('click', (e) => {
+  e.preventDefault()
+  let objName = movieTitle.value;
+ 
+  let movie = new Movie(rating.value, runtime.value, yearReleased.value, plotSummary.value, starringActors.value, imgLink.value);
   
+  console.log(movie);
+
+  movieData[objName] = movie;
+  posterWall.removeChild(buttonContainer[0]);
+  posterDislpay();
+  addListener();
+
+
+  console.log(movieData);
+  movieForm.reset();
 })
 
-//Fantastic Mr. Fox Button
 
-posterButtons[2].addEventListener('click', () => {
-  posterWall.style.display = 'none';
-  instructionsBox.style.display = 'none';
 
-  createBackBtn();
-  movieDisplay(2);
-})
 
-//Grand Budapest Hotel button
 
-posterButtons[3].addEventListener('click', () => {
-  posterWall.style.display = 'none';
-  instructionsBox.style.display = 'none';
-
-  createBackBtn()
-  movieDisplay(3);
-})
-
-// backButton.addEventListener('click', () => {
-//   posterWall.style.display = 'flex';
-// })
