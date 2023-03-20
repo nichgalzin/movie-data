@@ -69,7 +69,6 @@ function posterDislpay() {
   
   values = Object.values(movieData);
   imgSrc = values.map(el => el.src);
-  console.log(imgSrc);
   
   let container = document.createElement('div');
 
@@ -195,7 +194,9 @@ const runtime = document.getElementById('runtime');
 const yearReleased = document.getElementById('year');
 const rating = document.getElementById('rating');
 const imgLink = document.getElementById('link');
+const inputFields = document.querySelectorAll('input');
 
+//Class for making new movie object
 
 class Movie {
   constructor(rating, runtime, year, plot, cast, src) {
@@ -208,23 +209,46 @@ class Movie {
   }
 }
 
-submitBtn.addEventListener('click', (e) => {
-  e.preventDefault()
-  let objName = movieTitle.value;
- 
-  let movie = new Movie(rating.value, runtime.value, yearReleased.value, plotSummary.value, starringActors.value, imgLink.value);
-  
-  console.log(movie);
+//Event listener for Submit button
 
+
+submitBtn.addEventListener('click', ($event) => {
+
+  if (!movieForm.checkValidity()) {
+    // If form is not valid, prevent default behavior and show error message
+    $event.preventDefault();
+    alert('Please fill out all required fields.');
+    return;
+  }
+  
+  let objName = movieTitle.value;
+  let imgLinkValue = imgLink.value;
+  if (!isValidImageUrl(imgLinkValue)) {
+    // If imgLink is not a valid image URL, prevent default behavior and show error message
+    $event.preventDefault();
+    alert('Please enter a valid image URL.');
+    return;
+  }
+
+  
+  let movie = new Movie(rating.value, runtime.value, yearReleased.value, plotSummary.value, starringActors.value, imgLink.value);
   movieData[objName] = movie;
   posterWall.removeChild(buttonContainer[0]);
   posterDislpay();
   addListener();
-
-
-  console.log(movieData);
+  $event.preventDefault();
   movieForm.reset();
 })
+
+//Function to check image link against regular expression pattern for file type
+
+function isValidImageUrl(url) {
+
+  return /\.(jpg|png|gif)$/.test(url);
+}
+
+
+
 
 
 

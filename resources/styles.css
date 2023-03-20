@@ -92,39 +92,40 @@ header p {
     width: 100%;  
 }
 
-.back-btn{
-    margin-top: 2rem;
-    position: absolute;
-    right: 3rem;
-    bottom: 2rem;
-}
-
 .btn {
     height: 3rem;
     width: 7rem;
     padding: .5rem;
+    position: relative;
     text-align: center;
+    opacity: .8;
     font-family: 'Shrikhand', cursive;
     background: #CBDFBD;
     box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
     cursor: pointer;
 }
 
-.btn:hover,
-.btn:active {
-    background-color: #D4E09B;
-    border: solid 3px #D4E09B;
+.back-btn{
+    margin-top: 2rem;
+    margin-left: 80%;
+    position: relative;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: 1;
 
 }
 
 .btn:active {
-    opacity: .5;
+    top: .25rem;
 }
 
 /* Movie form */
 
 #form-box {
-    margin-top: 5rem;
+    margin: 5rem 0;
     text-align: center;
 }
 
@@ -139,7 +140,8 @@ form {
 }
 
 input {
-    margin: .75rem;
+    margin-top: 2rem;
+    margin-left: .75rem;
     width: 15rem;
 }
 
