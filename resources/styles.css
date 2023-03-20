@@ -50,7 +50,7 @@ header p {
     background-color: #A44A3F;
     color: #F6F4D2;
     padding: 1rem;
-    width: 35%;
+    width: 50%;
     margin: 1rem 0 0 2rem;
 }
 
@@ -63,7 +63,7 @@ header p {
 }
 
 .poster-btn {
-    width: 30%;
+    width: 40vw;
     margin-top: 2rem;
 }
 
@@ -74,7 +74,9 @@ header p {
 
 #movie-info {
     display: flex;
-    margin-top: 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem 2rem;
 }
 
 .text-box {
@@ -89,7 +91,12 @@ header p {
 }
 
 .info-poster {
-    width: 100%;  
+    width: 70vw;
+    margin: 0 auto;  
+}
+
+#back-btn{
+    left: 60%;
 }
 
 .btn {
@@ -105,20 +112,17 @@ header p {
     cursor: pointer;
 }
 
-.back-btn{
-    margin-top: 2rem;
-    margin-left: 80%;
-    position: relative;
-    opacity: 1;
-    cursor: pointer;
-}
 
 .btn:hover {
     opacity: 1;
 
 }
 
-.btn:active {
+#back-btn:active {
+    bottom: -1vw;
+}
+
+#submit-btn:active {
     top: .25rem;
 }
 
@@ -148,6 +152,51 @@ input {
 #submit-btn {
     margin-top: 2rem;
 }
+
+@media only screen and (min-width: 600px) and (max-width: 1199px) {
+   
+    .poster-btn {
+        width: 30vw;
+    }
+
+    #movie-info {
+        flex-direction: row;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    
+    #instructions {
+        width: 30%;
+    }
+    
+    .poster-btn {
+        width: 20vw;
+    }
+
+    #movie-info {
+        flex-direction: row;
+    }
+
+    #back-btn {
+        left: 50vw;
+        bottom: 10vw;
+    }
+
+    #back-btn:active {
+        bottom: 9.5vw;
+    }
+
+    .info-poster {
+        width: 30vw;
+        margin-left: 5vw;
+    }
+
+    .text-box p {
+        margin-right: 5rem;
+    }
+  }
+   
 
 
 

@@ -10,7 +10,7 @@ let movieData = {
       src: './resources/images/darjeelinglimited_NatalieAndrewson_web_670.jpg',
     },
     "The Royal Tenenbaums": {
-      plot: "The eccentric members of a dysfunctional family reluctantly gather under the same roof for various reasons",
+      plot: "The eccentric members of a dysfunctional family reluctantly gather under the same roof for various reasons.",
       rating: 7.6,
       year: 2001,
       cast: ["Gene Hackman ",  "Gwnyeth Paltrow ", " Anjelica Huston"],
@@ -140,7 +140,6 @@ posterDislpay();
 function createBackBtn() {
     const backBtn = document.createElement('button');
     backBtn.textContent = 'Go Back';
-    backBtn.classList.add('back-btn');
     backBtn.id = 'back-btn'
     backBtn.classList.add('btn');
     movieWall.appendChild(backBtn);
