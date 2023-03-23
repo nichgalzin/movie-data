@@ -22,7 +22,7 @@
         <section id="poster-wall"> </section>
         <section id="movie-wall"></section>
         <section id="form-box">
-            <h2>Or add your favourite film to the poster wall!</h2>
+            <h2 id="form=header">Add your favourite film to the poster wall!</h2>
             <form id="movie-form">
                 
                 <label for="movie-title">Movie Title:</label>
@@ -41,7 +41,7 @@
                 <input type="number" id="year" required>
                 <br>
                 <label for="rating">Rating:</label>
-                <input type="number" id="rating" required>
+                <input type="number" id="rating" step = '0.1' required>
                 <br>
                 <label for="link">Image URL:</label>
                 <input type="text" id="link" required>
@@ -49,8 +49,31 @@
                 <button type="submit" id="submit-btn" class="btn">Submit</button>
 
             </form>
-
         </section>
+        <!-- <section id="edit-form">
+            <label for="movie-title">Movie Title:</label>
+                <input type="text" id="edit-title" required>
+                <br>
+                <label for="plot">Plot Summary</label>
+                <input type="text"  id="edit-plot" required>
+                <br>
+                <label for="actors">Starring Actors:</label>
+                <input type="text" id="edit-actors"required>
+                <br>
+                <label for="runtime">Runtime:</label>
+                <input type="number" id="edit-runtime" required>
+                <br>
+                <label for="year">Year released:</label>
+                <input type="number" id="edit-year" required>
+                <br>
+                <label for="rating">Rating:</label>
+                <input type="number" id="edit-rating" required>
+                <br>
+                <label for="link">Image URL:</label>
+                <input type="text" id="edit-link" required>
+                <br>
+                <button type="submit" id="submit-btn" class="btn">Submit</button>
+        </section> -->
     </main>
 </body>
 </html>

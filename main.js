@@ -23,7 +23,7 @@ let movieData = {
       cast: [
         "George Clooney ",
         " Meryl Streep ",
-        " Bill Murray ",
+        " Bill Murray ", 
         " Jason Schwartzman",
       ],
       runtime: 147,
@@ -37,38 +37,60 @@ let movieData = {
       plot: "A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.",
       cast: ["Ralph Fiennes ", " F. Murray Abraham ", " Mathieu Amalric"],
       src: './resources/images/grandbudapest-hotelnatalieandrewson_web_670.jpg',
-    },
+    }
   }
 
 
 // Movie titles and values arrays
 
-const titles = Object.keys(movieData);
+let titles = Object.keys(movieData);
 let values = Object.values(movieData);
 let imgSrc = values.map(el => el.src);
 
+console.log(values);
+
 // DOM Access for  poster and individual movie display walls
+
+// header box at top of page
 
 const instructionsBox = document.getElementById('instructions');
 const instructionsHeader = document.querySelector('h2');
+
+
+// Parent containers
 
 const posterContainer = document.querySelector('section');
 const buttonContainer = document.getElementsByClassName('container');
 const posterButtons = document.getElementsByClassName('poster-btn');
 const posterWall = document.getElementById('poster-wall');
-
 const movieWall = document.getElementById('movie-wall');
-const backButton = document.getElementById('back-btn')
+const formBox = document.getElementById('form-box')
 
+// DOM Access for form elements
+
+const movieForm = document.getElementById('movie-form');
+const formHeader = document.getElementById('form=header');
+const submitBtn = document.getElementById('submit-btn');
+const movieTitle = document.getElementById('movie-title');
+const plotSummary = document.getElementById('plot');
+const starringActors = document.getElementById('actors');
+const runtime = document.getElementById('runtime');
+const yearReleased = document.getElementById('year');
+const rating = document.getElementById('rating');
+const imgLink = document.getElementById('link');
+const inputFields = document.querySelectorAll('input');
 
 /*
   Poster wall
 */
+
+//Functions to display main poster wall
   
 function posterDislpay() {
   
   values = Object.values(movieData);
   imgSrc = values.map(el => el.src);
+  titles = Object.keys(movieData);
   
   let container = document.createElement('div');
 
@@ -124,28 +146,175 @@ posterDislpay();
     ratingParagraph.textContent =  `Rating: ${values[i].rating}`;
     
     //Add to the DOM
-
     posterDiv.appendChild(posterImg);
     textDiv.appendChild(h2);
-
-    parentDiv.append(posterDiv, textDiv);
     textDiv.append(plotParagraph, castParagraph, runtimeParagraph, yearParagraph, ratingParagraph);
-    
+    parentDiv.append(posterDiv, textDiv);
     movieWall.appendChild(parentDiv);
   }
 
+  /*
+  Edit info form
+  */
 
-/* Funcions */
+// function to create form elements
+
+function createEditForm(i) {
+
+  let editForm = document.createElement('form');
+  editForm.setAttribute('id', 'edit-form');
+  editForm.style.display = 'none';
+  
+  //Title label and input
+  let titleLabel = document.createElement('label');
+  let titleInput = document.createElement('input');
+  let div1 = document.createElement('div');
+  titleLabel.setAttribute('for', 'title');
+  titleInput.setAttribute('type', 'textarea');
+  titleInput.setAttribute('id', 'edit-title')
+  titleInput.setAttribute('required', true);
+  titleInput.value = titles[i];
+  titleLabel.textContent = 'Title:';
+  div1.append(titleLabel, titleInput);
+
+  //Plot label and input
+  let plotLabel = document.createElement('label');
+  let plotInput = document.createElement('textarea');
+  let div2 = document.createElement('div');
+  div2.style.display = 'flex';
+  div2.id = 'div2';
+  plotLabel.setAttribute('for', 'edit-plot');
+  plotLabel.setAttribute('id', 'plot-label');
+  plotInput.setAttribute('id', 'edit-plot');
+  plotInput.setAttribute('required', true);
+  plotInput.rows = '8';
+  plotInput.cols = '30';
+  plotInput.value = values[i].plot;
+  plotLabel.textContent = 'Plot:';
+  div2.append(plotLabel, plotInput);
+
+  //Cast label and input
+  let starringLabel = document.createElement('label');
+  let starringInput = document.createElement('input');
+  let div3 = document.createElement('div');
+  starringLabel.setAttribute('for', 'edit-cast');
+  starringInput.setAttribute('id', 'edit-cast');
+  starringInput.setAttribute('type', 'text');
+  starringInput.setAttribute('required', true);
+  starringInput.value = values[i].cast;
+  starringLabel.textContent = 'Starring:';
+  div3.append(starringLabel, starringInput);
+
+  //Runtime label and input
+  let runtimeLabel = document.createElement('label');
+  let runtimeInput = document.createElement('input');
+  let div4 = document.createElement('div');
+  runtimeLabel.setAttribute('for', 'edit-runtime');
+  runtimeInput.setAttribute('id', 'edit-runtime');
+  runtimeInput.setAttribute('type', 'number');
+  runtimeInput.setAttribute('required', true);
+  runtimeInput.value = values[i].runtime;
+  runtimeLabel.textContent = 'Runtime:';
+  div4.append(runtimeLabel, runtimeInput);
+
+  //Year label and input
+  let yearLabel = document.createElement('label');
+  let yearInput = document.createElement('input');
+  let div5 = document.createElement('div');
+  yearLabel.setAttribute('for', 'edit-year');
+  yearInput.setAttribute('id', 'edit-year');
+  yearInput.setAttribute('type', 'number');
+  yearInput.setAttribute('required', true);
+  yearInput.value = values[i].year;
+  yearLabel.textContent = 'Year:'
+  div5.append(yearLabel, yearInput);
+
+  //Rating label and input
+  let ratingLabel = document.createElement('label');
+  let ratingInput = document.createElement('input');
+  let div6 = document.createElement('div');
+  ratingLabel.setAttribute('for', 'edit-rating');
+  ratingInput.setAttribute('id', 'edit-rating');
+  ratingInput.setAttribute('type', 'number');
+  ratingInput.setAttribute('required', true);
+  ratingInput.setAttribute('step', '0.1');
+  ratingInput.value = values[i].rating;
+  ratingLabel.textContent = 'Rating:'
+  div6.append(ratingLabel, ratingInput);
+
+  //Save button
+  let saveBtn = document.createElement('button');
+  saveBtn.setAttribute('type', 'submit');
+  saveBtn.id = 'save-btn';
+  saveBtn.classList.add('btn');
+  saveBtn.innerHTML = 'Save'
+
+  //DOM insertion
+  editForm.append(div1, div2, div3, div4, div5, div6, saveBtn);
+  formBox.append(editForm);
+
+  //Add event listener for save button
+  
+  saveBtn.addEventListener('click', ($event) => {
+    
+    if (!editForm.checkValidity()) {
+    // If form is not valid, prevent default behavior and show error message
+    $event.preventDefault();
+    alert('Please fill out all required fields.');
+    return;
+  }
+    $event.preventDefault();
+
+    //Assign form input values to object
+    titles[i] = titleInput.value;
+    values[i].plot = plotInput.value;
+    values[i].cast = starringInput.value;
+    values[i].year = yearInput.value;
+    values[i].runtime = runtimeInput.value;
+    values[i].rating = ratingInput.value;
+
+    //Clear the old displayed movie info data
+    while (movieWall.firstChild) {
+      movieWall.removeChild(movieWall.firstChild);
+    }
+
+    //Display updated data
+    movieDisplay(i);
+    createBackBtn();
+  })
+}
+
+/* 
+Functions
+ */
+
+//Function to create back and edit buttons and add event listeners
 
 function createBackBtn() {
+
+  //Create back button element, and assign values
     const backBtn = document.createElement('button');
     backBtn.textContent = 'Go Back';
     backBtn.id = 'back-btn'
     backBtn.classList.add('btn');
-    movieWall.appendChild(backBtn);
+
+    //Create edit button
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.classList.add('btn');
+    editBtn.id = 'edit-btn';
+
+    movieWall.append(backBtn, editBtn);
+
+
+    //DOM Access
 
     const backButton = document.getElementById('back-btn')
-    
+    let editForm = document.getElementById('edit-form');
+
+
+    //Add event listener to back button 
+
     backButton.addEventListener('click', () => {
       posterWall.style.display = 'flex';
       instructionsBox.style.display ='block';
@@ -153,11 +322,20 @@ function createBackBtn() {
       let movieInfo = document.getElementById('movie-info');
       movieWall.removeChild(movieInfo);
       movieWall.removeChild(backBtn);
+      movieWall.removeChild(editBtn);
+      formBox.removeChild(editForm);
+      formHeader.textContent = 'Add your favourite film to the poster wall!';
+      movieForm.style.display = 'block';
 
+    })
+
+    editBtn.addEventListener('click', () => {
+      formHeader.innerHTML = 'Edit movie information';
+      editForm.style.display = 'block';
     })
 }
 
-// Function for add event listener to poster wall
+// Function for adding event listenesr to posters on wall
 
 function addListener() {
 
@@ -167,8 +345,11 @@ function addListener() {
       posterButtons[i].addEventListener('click', () => {
           posterWall.style.display = 'none';
           instructionsBox.style.display = 'none';
-      
+          movieForm.style.display = 'none';
+          formHeader.innerHTML = '';
+
           movieDisplay(i);
+          createEditForm(i);
           createBackBtn();
       })
     }
@@ -176,24 +357,16 @@ function addListener() {
 
 addListener();
 
+//Function to check image link against regular expression pattern for file type
+
+function isValidImageUrl(url) {
+
+  return /\.(jpg|png|gif)$/.test(url);
+}
 
 /*
-  Form for adding a film
+Class constructors
 */
-
-
-// DOM Access for form elements
-
-const movieForm = document.getElementById('movie-form');
-const submitBtn = document.getElementById('submit-btn');
-const movieTitle = document.getElementById('movie-title');
-const plotSummary = document.getElementById('plot');
-const starringActors = document.getElementById('actors');
-const runtime = document.getElementById('runtime');
-const yearReleased = document.getElementById('year');
-const rating = document.getElementById('rating');
-const imgLink = document.getElementById('link');
-const inputFields = document.querySelectorAll('input');
 
 //Class for making new movie object
 
@@ -208,8 +381,11 @@ class Movie {
   }
 }
 
-//Event listener for Submit button
+/*
+Event Listeners
+*/
 
+//Event listener for Submit button
 
 submitBtn.addEventListener('click', ($event) => {
 
@@ -229,7 +405,6 @@ submitBtn.addEventListener('click', ($event) => {
     return;
   }
 
-  
   let movie = new Movie(rating.value, runtime.value, yearReleased.value, plotSummary.value, starringActors.value, imgLink.value);
   movieData[objName] = movie;
   posterWall.removeChild(buttonContainer[0]);
@@ -239,12 +414,6 @@ submitBtn.addEventListener('click', ($event) => {
   movieForm.reset();
 })
 
-//Function to check image link against regular expression pattern for file type
-
-function isValidImageUrl(url) {
-
-  return /\.(jpg|png|gif)$/.test(url);
-}
 
 
 
