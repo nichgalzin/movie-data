@@ -3,7 +3,7 @@
 let movieData = {
     "The Darjeeling Limited": {
       plot: "A year after their father's funeral, three brothers travel across India by train in an attempt to bond with each other.",
-      cast: ["Jason Schwartzman ", " Owen Wilson ", " Adrien Brody"],
+      cast: ["Jason Schwartzman", " Owen Wilson", " Adrien Brody"],
       runtime: 151,
       rating: 7.2,
       year: 2007,
@@ -13,7 +13,7 @@ let movieData = {
       plot: "The eccentric members of a dysfunctional family reluctantly gather under the same roof for various reasons.",
       rating: 7.6,
       year: 2001,
-      cast: ["Gene Hackman ",  "Gwnyeth Paltrow ", " Anjelica Huston"],
+      cast: ["Gene Hackman",  "Gwnyeth Paltrow", " Anjelica Huston"],
       runtime: 170,
       src: './resources/images/the-royal-t_web-natalieandrewson_670.jpg',
     },
@@ -35,7 +35,7 @@ let movieData = {
       runtime: 159,
       year: 2014,
       plot: "A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.",
-      cast: ["Ralph Fiennes ", " F. Murray Abraham ", " Mathieu Amalric"],
+      cast: ["Ralph Fiennes", " F. Murray Abraham", " Mathieu Amalric"],
       src: './resources/images/grandbudapest-hotelnatalieandrewson_web_670.jpg',
     }
   }
@@ -46,8 +46,6 @@ let movieData = {
 let titles = Object.keys(movieData);
 let values = Object.values(movieData);
 let imgSrc = values.map(el => el.src);
-
-console.log(values);
 
 // DOM Access for  poster and individual movie display walls
 
@@ -136,11 +134,14 @@ posterDislpay();
     textDiv.classList.add('text-box')
     parentDiv.id = 'movie-info';
 
+    //Take cast array and make it into string with spaces
+    let castStr = values[i].cast.join(', ');
+
     // Assign values
     h2.textContent = titles[i];
     posterImg.src = imgSrc[i];
     plotParagraph.textContent = `Plot: ${values[i].plot}`;
-    castParagraph.textContent = `Starring: ${values[i].cast}`;
+    castParagraph.textContent = `Starring: ${castStr}`;
     runtimeParagraph.textContent = `Runtime: ${values[i].runtime}`;
     yearParagraph.textContent = `Year: ${values[i].year}`;
     ratingParagraph.textContent =  `Rating: ${values[i].rating}`;
@@ -268,11 +269,16 @@ function createEditForm(i) {
     //Assign form input values to object
     titles[i] = titleInput.value;
     values[i].plot = plotInput.value;
-    values[i].cast = starringInput.value;
     values[i].year = yearInput.value;
     values[i].runtime = runtimeInput.value;
     values[i].rating = ratingInput.value;
 
+    values[i].cast.length = 0; 
+    let cast = starringInput.value;
+    cast.split(',').forEach(function(actor) {
+      values[i].cast.push(actor);
+  })
+    
     //Clear the old displayed movie info data
     while (movieWall.firstChild) {
       movieWall.removeChild(movieWall.firstChild);
@@ -371,12 +377,12 @@ Class constructors
 //Class for making new movie object
 
 class Movie {
-  constructor(rating, runtime, year, plot, cast, src) {
+  constructor(rating, runtime, year, plot, src) {
     this.rating = rating;
     this.runtime = runtime;
     this.year = year;
     this.plot = plot;
-    this.cast = cast;
+    this.cast = [];
     this.src = src;
   }
 }
@@ -405,13 +411,22 @@ submitBtn.addEventListener('click', ($event) => {
     return;
   }
 
-  let movie = new Movie(rating.value, runtime.value, yearReleased.value, plotSummary.value, starringActors.value, imgLink.value);
+  let movie = new Movie(rating.value, runtime.value, yearReleased.value, plotSummary.value, imgLink.value);
+
+  let cast = starringActors.value;
+  cast.split(',').forEach(function(actor) {
+    movie.cast.push(actor);
+  })
+
   movieData[objName] = movie;
   posterWall.removeChild(buttonContainer[0]);
   posterDislpay();
   addListener();
   $event.preventDefault();
   movieForm.reset();
+
+  console.log(movieData);
+  console.log(movie);
 })
 
 
