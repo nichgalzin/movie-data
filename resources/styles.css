@@ -130,7 +130,7 @@ header p {
 }
 
 #back-btn:active, #edit-btn:active, #save-btn:active {
-    bottom: -1vw;
+    bottom: -.5vw;
 }
 
 #submit-btn:active {
